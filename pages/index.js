@@ -7,12 +7,20 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
 
-  const [headerImage, setHeaderImage] = useState(`http://localhost:3000/api/images/0`);
-  const [imageIndex, setImageIndex] = useState(0);
+  const [images, setImages] = useState([])
+  const [loaded, setLoaded] = useState(false)
+  const [index, setIndex] = useState(0)
 
-  function getImageAtIndex(index){
-    setHeaderImage(`http://localhost:3000/api/images/${index}`)
-  }
+  useEffect(()=>{
+    axios.get('http://localhost:3000/api/images')
+      .then((response)=>{
+        setImages(response.data.images)
+      })
+      .then(()=>{
+        setLoaded(true)
+      })
+  },[])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -22,13 +30,11 @@ export default function Home() {
       </Head>
 
       <main>
-        <img src={headerImage} className={styles.headerImage}></img>
+        {loaded ? <img src={images[index]} className={styles.headerImage}></img> : <p></p>}
         <div>
-          <button onClick={()=>{setImageIndex(imageIndex+1)
-            getImageAtIndex(imageIndex)}}>Right</button>
-          <button onClick={()=>{setImageIndex(imageIndex-1)
-            getImageAtIndex(imageIndex)}}>Left</button>
-          <p>{imageIndex}</p>
+          <button onClick={()=>{setIndex(index + 1)}}>Right</button>
+          <button onClick={()=>{setIndex(index - 1)}}>Left</button>
+          <p>{index}</p>
         </div>
       </main>
         
