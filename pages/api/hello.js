@@ -1,5 +1,4 @@
 const mongodb = require('mongodb')
-const fs = require('fs')
 
 const { connectToDatabase } = require('../../middleware/mongodb');
 const ObjectId = require('mongodb').ObjectId;
@@ -18,14 +17,15 @@ async function getPosts(req, res) {
         let files = await db.collection('fs.files').find({}).toArray();
         let bucket = new mongodb.GridFSBucket(db);
 
-        bucket.openDownloadStream(ObjectId("61e42d744963ef481690de36")).
-     pipe(fs.createWriteStream('./outputFile.jpg'));
+        const downstream = bucket.openDownloadStream(ObjectId("61e42d744963ef481690de36"));
+        let image
+        //downstream.pipe(res)
 
-
-
+        
         return res.json({
             message: JSON.parse(JSON.stringify(files)),
             success: true,
+            files: image
         });
     } catch (err) {
         return res.json({
