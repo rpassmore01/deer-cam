@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { set } from 'mongoose'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
@@ -6,10 +7,11 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
 
-  const [data, setData] = useState(null);
+  const [headerImage, setHeaderImage] = useState(`http://localhost:3000/api/images/0`);
+  const [imageIndex, setImageIndex] = useState(0);
 
   function getImageAtIndex(index){
-    return <img src={`http://localhost:3000/api/images/${index}`} className={styles.mainImg}></img>
+    setHeaderImage(`http://localhost:3000/api/images/${index}`)
   }
   return (
     <div className={styles.container}>
@@ -20,7 +22,14 @@ export default function Home() {
       </Head>
 
       <main>
-        {getImageAtIndex(5)}
+        <img src={headerImage} className={styles.headerImage}></img>
+        <div>
+          <button onClick={()=>{setImageIndex(imageIndex+1)
+            getImageAtIndex(imageIndex)}}>Right</button>
+          <button onClick={()=>{setImageIndex(imageIndex-1)
+            getImageAtIndex(imageIndex)}}>Left</button>
+          <p>{imageIndex}</p>
+        </div>
       </main>
         
     </div>
