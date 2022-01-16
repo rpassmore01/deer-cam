@@ -8,10 +8,9 @@ export default function Home() {
 
   const [data, setData] = useState(null);
 
-  useEffect( async ()=> {
-    const result = await axios('http://localhost:3000/api/hello');
-    setData(result.data);
-  }, [])
+  function getImageAtIndex(index){
+    return <img src={`http://localhost:3000/api/images/${index}`} className={styles.mainImg}></img>
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -21,7 +20,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <img src='http://localhost:3000/api/hello'></img>
+        {getImageAtIndex(5)}
       </main>
         
     </div>
