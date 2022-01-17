@@ -9,8 +9,8 @@ export default async function handler(req, res){
     for(let i = 0; i < filesJSON.length; i++){
         images.push({
             image: `http://localhost:3000/api/images/${i}`,
-            date: filesJSON[i].uploadDate
+            date: filesJSON[i].uploadDate,
         })
     }
-    res.json({images: images})
+    res.json({images: images, length: filesJSON.length})
 }

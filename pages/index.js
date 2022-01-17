@@ -4,6 +4,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
+import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Home() {
 
@@ -32,10 +34,11 @@ export default function Home() {
       <main>
         {loaded ? <img src={images[index].image} className={styles.headerImage}></img> : <p></p>}
         <div>
-          <button onClick={()=>{setIndex(index + 1)}}>Right</button>
-          <button onClick={()=>{setIndex(index - 1)}}>Left</button>
+          <button onClick={()=>{setIndex(index - 1)}} className={`${styles.imgBtn} ${styles.leftBtn}`}><FontAwesomeIcon icon={faArrowLeft} className={styles.faBtn}></FontAwesomeIcon></button>
+          <button onClick={()=>{setIndex(index + 1)}} className={`${styles.imgBtn} ${styles.rightBtn}`}><FontAwesomeIcon icon={faArrowRight} className={styles.faBtn}/></button>
           <p>{index}</p>
           {loaded ? <p>{images[index].date}</p> : <p></p>}
+          {loaded ? <p>{images.length}</p> : <p></p>}
         </div>
       </main>
         
