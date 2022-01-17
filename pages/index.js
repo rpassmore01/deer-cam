@@ -30,11 +30,12 @@ export default function Home() {
       </Head>
 
       <main>
-        {loaded ? <img src={images[index]} className={styles.headerImage}></img> : <p></p>}
+        {loaded ? <img src={images[index].image} className={styles.headerImage}></img> : <p></p>}
         <div>
           <button onClick={()=>{setIndex(index + 1)}}>Right</button>
           <button onClick={()=>{setIndex(index - 1)}}>Left</button>
           <p>{index}</p>
+          {loaded ? <p>{images[index].date}</p> : <p></p>}
         </div>
       </main>
         

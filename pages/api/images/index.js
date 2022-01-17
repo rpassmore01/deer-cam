@@ -7,7 +7,10 @@ export default async function handler(req, res){
     const filesJSON = JSON.parse(JSON.stringify(files))
     const images = []
     for(let i = 0; i < filesJSON.length; i++){
-        images.push(`http://localhost:3000/api/images/${i}`)
+        images.push({
+            image: `http://localhost:3000/api/images/${i}`,
+            date: filesJSON[i].uploadDate
+        })
     }
     res.json({images: images})
 }
